@@ -1,0 +1,23 @@
+<div class="mt-4 ml-10">
+    <h3>Cập nhật khoá học</h3>
+    {{!-- dòng code below là form này có method post và chuyển đường truyền đến /courses/store --}}
+    <form class="mt-4" method="POST" action="/courses/{{course._id}}/?_method=PUT">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Name</label>
+            <input type="text" class="form-control" value="{{course.name}}" id="Name" name="name" >
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Description</label>
+            <input type="text" class="form-control" value="{{course.description}}" id="Description" name="description" >
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Video ID</label>
+            <input type="text" class="form-control" value="{{course.vidID}}" id="videoID" name="vidID" >
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Level</label>
+            <input type="text" class="form-control" value="{{course.level}}" id="Level" name="level" >
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

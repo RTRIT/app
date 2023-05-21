@@ -1,0 +1,59 @@
+<div class="mt-4">
+    <div class="row">
+        <div class="col-lg-9">
+            <h1 id="course-name">{{courseDetail.name}}</h1>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{courseDetail.vidID}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <p>{{courseDetail.description}}</p>
+        </div>
+        <div class="col-lg-3">
+            <button id="button-2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" course-name="{{courseDetail.name}}" course-id="{{courseDetail._id}}" >Mua Ngay</button>
+            {{!-- <h1 id="demo" course-id="{{courseDetail._id}}">Checking whether it's work</h1> --}}
+        </div>
+    </div>
+</div>
+
+{{!-- Khi bấm mua sẽ hiện lên một cái form có tên sản phẩm và điền số lượng vào (số lượng điền vào đảm bảo đủ trong kho) --}}
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{!-- Trong form sẽ có tên sản phẩm và số lượng sản phẩm người dùng mua --}}
+        <form id="update-form" name="update-course-form" class="mt-4" method="POST" >
+            <input type="text" value="{{courseDetail.name}}">
+            <input type="number" name="qty" id="qty" min="1">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-danger" data-bs-dismiss="modal">Huỷ</button>
+        <button type="button" id="btn-accept" class="btn ">Chấp nhận</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+    var exampleModal = document.getElementById('staticBackdrop')
+    var button2 = document.getElementById('button-2')
+    var updataForm = document.getElementById('update-form');
+    var accept_btn = document.getElementById('btn-accept')
+
+    exampleModal.addEventListener('show.bs.modal', function(event){
+        var button = event.relatedTarget
+        accept_btn.onclick=function(){
+            var course_id = button2.getAttribute("course-id");
+            updataForm.action = "/courses/" + course_id  +"/cart/?_method=PUT";
+            updataForm.submit();
+    }
+
+    })
+
+    
+</script>

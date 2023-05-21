@@ -1,0 +1,79 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Tên khoá học</th>
+      <th scope="col">Trình độ</th>
+      <th scope="col">Thời gian tạo</th>
+      
+
+    </tr>
+  </thead>
+  <tbody>
+    {{#each courses}}
+    <tr>
+      {{!-- @index này sẽ lấy giá trị index được đánh tự động bởi mongodb --}}
+      <th scope="row">{{index @index }}</th>
+      <td>{{this.name}}</td>
+      <td>{{this.level}}</td>
+      <td>{{this.createdAt}}</td>
+      <td>
+        <a href="/courses/{{this._id}}/edit" class="btn btn-link">sửa</a>
+        {{!-- Trong nút xoá có chèn thêm một thuộc tính để lưu trữ id của sản phẩm --}}
+        <a href="/courses/{{this._id}}" type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id="{{this._id}}" >xoá</a>
+      </td>
+    </tr>
+    {{/each }}
+  </tbody>
+</table>
+
+{{!-- Delete hidden form --}}
+<form name="delete-course-form" class="mt-4" method="POST" ></form>
+{{!-- Confirm delete course --}}
+<!-- Modal -->
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
+        <button type="button" id="btn-delete-course" class="btn btn-danger">delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var exampleModal = document.getElementById('staticBackdrop')
+  var course_id ;
+  //Form delete
+  var deleteForm = document.forms['delete-course-form'];
+  //Nút xoá của modal được pop up lên để người dùng xác nhận muốn xoá
+  //Lấy ra thẻ có id là btn-delete-course
+  var delete_btn = document.getElementById('btn-delete-course');
+
+  // Lắng nghe sự kiện xuất hiện của modeldât
+  exampleModal.addEventListener('show.bs.modal', function (event) {
+    // Button that triggered the modal
+      var button = event.relatedTarget
+    // Extract info from data-id attributes
+    //Lấy info từ data-id attributes (id của sản phẩm)
+      course_id = button.getAttribute("data-id")
+      //Lắng nghe sự kiện click vào nút delete sau đó thì thêm thuộc tính action vào thẻ delete form 
+      delete_btn.onclick=function(){
+        deleteForm.action='/courses/' + course_id + '/?_method=DELETE';
+        //Phương thức submit sẽ submit form, khi submit form thì form sẽ theo đường dẫn sau: /courses/course_id/ theo method DELETE
+        deleteForm.submit();
+      }
+      
+    
+     
+})
+</script>

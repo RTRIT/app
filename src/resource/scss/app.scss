@@ -1,0 +1,33 @@
+@import 'variables';
+
+h1{
+    font-size: 50px;
+    color: red;
+}
+h2{
+    font-size: 30px;
+    color: green;
+}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.card-course-item{
+    margin-top: 16px;
+}
+
+.create-form{
+    margin-top: 100px;
+}
+
+.nav-item-dropdown{
+    margin-left: 1000px;
+}
+
+.fa-shopping-cart{
+    color: white;
+    width: 50px;
+    margin-top: 12px;
+}

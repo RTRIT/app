@@ -1,0 +1,27 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Sản phẩm</th>
+      <th scope="col">Sô lượng</th>
+      <th scope="col">Gía tiền</th>
+      
+
+    </tr>
+  </thead>        
+  <tbody>
+    {{#each user.cart}}
+    <tr>
+      {{!-- @index này sẽ lấy giá trị index được đánh tự động bởi mongodb --}}
+      <th scope="row">{{index @index }}</th>
+      <td>{{this.product_id}}</td>
+      <td>{{this.qty}}</td>
+      <td>
+        {{!-- <a href="/courses/{{this._id}}/edit" class="btn btn-link">sửa</a> --}}
+        {{!-- Trong nút xoá có chèn thêm một thuộc tính để lưu trữ id của sản phẩm --}}
+        {{!-- <a href="/courses/{{this._id}}" type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id="{{this._id}}" >xoá</a> --}}
+      </td>
+    </tr>
+    {{/each }}
+  </tbody>
+</table>
